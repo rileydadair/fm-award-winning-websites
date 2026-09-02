@@ -24,7 +24,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         geistMono.variable,
         geistMono.className,
         s.section,
-        "relative"
+        "relative",
       )}
     >
       <div className="fixed z-10 inset-0 bg-linear-to-t from-black to-[#1B1B1B]" />

@@ -26,7 +26,15 @@ function Animation() {
   const containerRef = useRef<HTMLDivElement>(null);
   useGSAP(
     () => {
-      const tl = gsap.timeline();
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1,
+          pin: ".pinned",
+        },
+      });
 
       tl.set(".outline-logo", {
         opacity: 1,
@@ -43,15 +51,15 @@ function Animation() {
         opacity: 1,
       });
     },
-    { scope: containerRef }
+    { scope: containerRef },
   );
 
   return (
     <div
       ref={containerRef}
-      className="h-screen relative bg-black border border-[#444]"
+      className="h-[300vh] relative bg-black border border-[#444]"
     >
-      <div className="flex h-screen justify-center items-center">
+      <div className="pinned flex h-screen justify-center items-center">
         <div className="realtive">
           <OutlineLogo className="outline-logo opacity-0 absolute" />
           <SolidLogo className="solid-logo opacity-0 relative" />

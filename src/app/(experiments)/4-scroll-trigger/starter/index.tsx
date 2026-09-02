@@ -5,6 +5,10 @@ import { Highlighted1, Highlighted2, Highlighted3 } from "./highlights";
 import { TitleSection } from "./title";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ScrollTrigger, DrawSVGPlugin } from "gsap/all";
+
+gsap.registerPlugin(DrawSVGPlugin);
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Page() {
   return (
@@ -21,16 +25,33 @@ function DescriptionSection() {
 
   useGSAP(
     () => {
-      const tl = gsap.timeline();
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: "h2",
+          start: "top center",
+          end: "bottom top",
+          toggleActions: "play reset play reverse",
+          markers: true,
+        },
+      });
 
       tl.from("h2", {
         opacity: 0,
         duration: 1,
       });
+
+      tl.from(
+        "path",
+        {
+          drawSVG: 0,
+          stagger: 0.3,
+        },
+        "-=0.4",
+      );
     },
     {
       scope: containerRef,
-    }
+    },
   );
 
   return (
